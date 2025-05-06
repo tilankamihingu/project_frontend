@@ -2,26 +2,21 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const AIInsights = () => {
-
-  const [forecast, setForecast] = useState(null);
   const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [forecast, setForecast] = useState(null);
+  const [suggestions, setSuggestions] = useState(null);
 
   useEffect(() => {
-    axios.post("http://localhost:5000/api/forecast/month", { month })
+    // 1. Fetch real forecast for selected month
+    axios.post("http://localhost:5001/api/forecast/month", { month })
       .then(res => setForecast(res.data))
       .catch(err => console.error("Failed to fetch forecast", err));
+
+    // 2. Fetch smart suggestions based on same month
+    axios.post("http://localhost:5001/api/smart-suggestions", { month })
+      .then(res => setSuggestions(res.data))
+      .catch(err => console.error("Smart suggestions error", err));
   }, [month]);
-
-  const simulateInsight = () => {
-    return {
-      mostSold: "Kottu",
-      leastSold: "String Hoppers",
-      priceTip: "Increase price of Fried Rice by 5% due to high demand.",
-      wasteTip: "Reduce portion size of Egg Hopper on weekends.",
-    };
-  };
-
-  const insights = forecast ? simulateInsight() : null;
 
   return (
     <div className="insights-page">
@@ -37,28 +32,42 @@ const AIInsights = () => {
         />
       </label>
 
-      {forecast && insights && (
+      {forecast && forecast.forecast && (
+        <div className="card">
+          <h4>📊 Forecast Summary for Month {month}</h4>
+          <ul>
+            {forecast.forecast.map((item, i) => (
+              <li key={i}>
+                {item.dish}: {item.total_sold} sold, {item.total_waste} waste
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {suggestions && (
         <div className="insights-box">
           <div className="card">
-            <h4>🔥 Most Sold Item</h4>
-            <p>{insights.mostSold}</p>
+            <h4>🌟 Trending Items</h4>
+            <ul>
+              {suggestions.trending_items.length > 0 ? (
+                suggestions.trending_items.map((item, i) => <li key={i}>{item}</li>)
+              ) : <li>None this month</li>}
+            </ul>
           </div>
+
           <div className="card">
-            <h4>❄️ Least Sold Item</h4>
-            <p>{insights.leastSold}</p>
-          </div>
-          <div className="card">
-            <h4>💰 AI Pricing Suggestion</h4>
-            <p>{insights.priceTip}</p>
-          </div>
-          <div className="card">
-            <h4>♻️ Waste Reduction Tip</h4>
-            <p>{insights.wasteTip}</p>
+            <h4>⚠️ Underperforming Items</h4>
+            <ul>
+              {suggestions.underperforming_items.length > 0 ? (
+                suggestions.underperforming_items.map((item, i) => <li key={i}>{item}</li>)
+              ) : <li>All dishes performed well</li>}
+            </ul>
           </div>
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
-export default AIInsights
+export default AIInsights;
