@@ -8,6 +8,7 @@ import FoodWasteAnalytics from "./pages/FoodWasteAnalytics/FoodWasteAnalytics";
 import AIInsights from "./pages/AIInsights/AIInsights";
 import ReportsExport from "./pages/ReportExport/ReportExport";
 import Settings from "./pages/Settings/Settings";
+import FoodItemAnalytics from "./pages/FoodItemAnalytics/FoodItemAnalytics";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/insights" element={<AIInsights />} />
           <Route path="/reports" element={<ReportsExport />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/food-item" element={<FoodItemAnalytics />} />
         </Routes>
       </Router>
     </div>
