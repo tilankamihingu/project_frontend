@@ -9,22 +9,30 @@ import AIInsights from "./pages/AIInsights/AIInsights";
 import ReportsExport from "./pages/ReportExport/ReportExport";
 import Settings from "./pages/Settings/Settings";
 import FoodItemAnalytics from "./pages/FoodItemAnalytics/FoodItemAnalytics";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
   return (
     <div className="App">
       <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sales" element={<SalesPrediction />} />
-          <Route path="/inventory" element={<InventoryManagement />} />
-          <Route path="/staff" element={<StaffManagement />} />
-          <Route path="/waste" element={<FoodWasteAnalytics />} />
-          <Route path="/insights" element={<AIInsights />} />
-          <Route path="/reports" element={<ReportsExport />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/food-item" element={<FoodItemAnalytics />} />
-        </Routes>
+        <div className="main-container">
+          <div className="side-panel">
+            <Sidebar />
+          </div>
+          <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sales" element={<SalesPrediction />} />
+            <Route path="/inventory" element={<InventoryManagement />} />
+            <Route path="/staff" element={<StaffManagement />} />
+            <Route path="/waste" element={<FoodWasteAnalytics />} />
+            <Route path="/insights" element={<AIInsights />} />
+            <Route path="/reports" element={<ReportsExport />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/food-item" element={<FoodItemAnalytics />} />
+          </Routes>
+          </div>
+        </div>
       </Router>
     </div>
   );
