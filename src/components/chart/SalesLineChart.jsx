@@ -29,6 +29,7 @@ const SalesLineChart = ({ breakdown = [] }) => {
   };
 
   const options = {
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: {
@@ -61,8 +62,7 @@ const SalesLineChart = ({ breakdown = [] }) => {
   };
 
   return (
-    <div style={{ marginTop: "2rem" }}>
-      <h3>📈 Daily Sales Forecast</h3>
+    <div style={{ height: "350px"}}>
       <Line data={data} options={options} />
     </div>
   );

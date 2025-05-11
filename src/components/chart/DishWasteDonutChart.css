@@ -1,0 +1,33 @@
+.dish-wise-waste-main-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.donut-wrapper{
+    width: 15rem;
+    height: 15rem;
+}
+
+.labels-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    width: 100%;
+}
+
+.label-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: #1a1a1a;
+    font-weight: 400;
+}
+
+.label-inside-wrapper{
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 100%;
+}

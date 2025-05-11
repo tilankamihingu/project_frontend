@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
+import './WasteLineChart.css';
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
@@ -28,10 +29,43 @@ const WasteLineChart = ({ breakdown = [] }) => {
     ]
   };
 
+  const options = {
+    maintainAspectRatio: false,
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => `${context.parsed.y.toLocaleString()} kg`,
+        },
+      },
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: "Waste in kg",
+        },
+        ticks: {
+          callback: (value) => `${value} kg`,
+        },
+      },
+      x: {
+        title: {
+          display: true,
+          text: "Day of Month",
+        },
+      },
+    },
+  };
+
+
   return (
-    <div style={{ marginTop: "2rem" }}>
-      <h3>🗑️ Daily Food Waste Forecast</h3>
-      <Line data={data} />
+    <div className="waste-chart-wrapper" style={{ height: "350px", width:"100%", position:"relative"}}>
+      <Line data={data} options={options}/>
     </div>
   );
 };
