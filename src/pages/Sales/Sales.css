@@ -1,0 +1,104 @@
+.sales-page-main-wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    width: 100%;
+    height: 100svh;
+}
+
+.top-wrapper{
+    padding: 1.25rem 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 0.5px solid #0000001A;
+}
+
+.left-side .top-heading-wrapper{
+    font-size: 0.875rem;
+    color: #000000;
+    font-weight: 500;
+}
+
+.right-side{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.right-side .export-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.75rem;
+    outline: none;
+    border: none;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* .table-page-wrapper{
+    width: 100%;
+    height: 100%;
+    padding: 0rem 1.75rem;
+    overflow: auto;
+} */
+
+.table-page-wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 0rem 1.75rem;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  thead tr {
+    background-color: #f9fafc;
+    color: #333;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  thead th {
+    padding: 12px 20px;
+    font-weight: 600;
+  }
+  
+  tbody tr {
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+  
+  tbody tr:hover {
+    background-color: #f1f5f9;
+  }
+  
+  tbody td {
+    padding: 14px 20px;
+    font-size: 0.92rem;
+    color: #444;
+    vertical-align: middle;
+  }
+  
+  tbody tr td:first-child {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+  
+  tbody tr td:last-child {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+  

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -7,25 +6,26 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import './DishWasteDonutChart.css'
+import './DishWasteDonutChart.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const colorSet = ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f"];
+const colorSet = ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f", "#252529", "#808080","rgb(243, 19, 19)","#1a1a1a", "blue"];
 
-const DishWasteDonutChart = ({ selectedMonth }) => {
-  const [data, setData] = useState([]);
+const DishWasteDonutChart = ({ forecast }) => {
+  if (!forecast || !forecast.breakdown) return null;
 
-  useEffect(() => {
-    const monthNum = parseInt(selectedMonth.split("-")[1]);
-    axios
-      .post("http://localhost:5001/api/forecast/dish-wise", { month: monthNum })
-      .then((res) => setData(res.data))
-      .catch((err) => console.error("Failed to fetch waste data:", err));
-  }, [selectedMonth]);
+  // Aggregate waste by dish
+  const wasteByDish = new Map();
+  forecast.breakdown.forEach(entry => {
+    if (!wasteByDish.has(entry.dish_name)) {
+      wasteByDish.set(entry.dish_name, 0);
+    }
+    wasteByDish.set(entry.dish_name, wasteByDish.get(entry.dish_name) + (entry.predicted_waste ?? 0));
+  });
 
-  const labels = data.map((d) => d.name);
-  const values = data.map((d) => d.predicted_waste);
+  const labels = Array.from(wasteByDish.keys());
+  const values = Array.from(wasteByDish.values());
   const total = values.reduce((sum, val) => sum + val, 0);
 
   const chartData = {
@@ -42,21 +42,27 @@ const DishWasteDonutChart = ({ selectedMonth }) => {
   return (
     <div className="dish-wise-waste-main-wrapper">
       <div className="donut-wrapper">
-      <Doughnut data={chartData} options={{
-        cutout: "70%",
-        plugins: { legend: { display: false } }
-      }} />
+        <Doughnut
+          data={chartData}
+          options={{
+            cutout: "70%",
+            plugins: { legend: { display: false } },
+          }}
+        />
       </div>
       <div className="labels-wrapper">
-      {labels.map((label, i) => {
-            const pct = ((values[i] / total) * 100).toFixed(1);
-            return (
-              <div className="label-wrapper" key={i}>
-                <div className="label-inside-wrapper" style={{ backgroundColor: colorSet[i]}} />
-                {label} — {pct}%
-              </div>
-            );
-          })}
+        {labels.map((label, i) => {
+          const pct = ((values[i] / total) * 100).toFixed(1);
+          return (
+            <div className="label-wrapper" key={i}>
+              <div
+                className="label-inside-wrapper"
+                style={{ backgroundColor: colorSet[i] }}
+              />
+              {label} — {pct}%
+            </div>
+          );
+        })}
       </div>
     </div>
   );

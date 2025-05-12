@@ -142,13 +142,13 @@
   gap: 1rem;
 }
 
-.third-section-content-left{
+.third-section-content-right{
   padding: 1.5rem;
   background-color: #F9F9FA;
   border-radius: 1rem;
 }
 
-.third-section-content-right{
+.third-section-content-left{
   flex-grow: 1;
   padding: 1.5rem;
   background-color: #F9F9FA;

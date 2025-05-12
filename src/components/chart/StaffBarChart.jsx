@@ -17,7 +17,7 @@ const StaffBarChart = ({ breakdown = [] }) => {
     datasets: [
       {
         label: "Recommended Staff",
-        data: breakdown.map((d) => d.recommended_staff ?? 0),
+        data: breakdown.map((d) => d.predicted_staff ?? 0),
         backgroundColor: "rgba(75, 192, 192, 0.6)",
         borderColor: "rgba(75, 192, 192, 1)",
         borderWidth: 1,

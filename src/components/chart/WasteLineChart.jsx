@@ -19,7 +19,7 @@ const WasteLineChart = ({ breakdown = [] }) => {
     datasets: [
       {
         label: "Predicted Food Waste (kg)",
-        data: breakdown.map((d) => d.predicted_food_waste ?? 0),
+        data: breakdown.map((d) => d.predicted_waste ?? 0),
         borderColor: "crimson",
         backgroundColor: "rgba(220, 20, 60, 0.1)",
         fill: true,
